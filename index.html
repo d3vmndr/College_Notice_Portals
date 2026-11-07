@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Result Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="portal">
+  <div class="split">
+    <aside class="hero">
+      <div>
+        <div class="crest" aria-hidden="true">R</div>
+      </div>
+      <div>
+        <p class="college" id="college">Examination results</p>
+        <h1>Check your result</h1>
+      </div>
+      <ol>
+        <li>Enter the symbol number printed on your admit card.</li>
+        <li>Enter your date of birth exactly as it appears on your records.</li>
+        <li>Pick a semester to see your gradesheet. Print it from your browser if you need a copy.</li>
+      </ol>
+      <p class="foot"><span id="updated"></span> <a href="notice_page.html" style="margin-right:12px;">Campus
+          notices</a> <a href="admin.html">Staff sign in</a></p>
+    </aside>
+
+    <main class="panel">
+      <section id="lookup" class="formcard" aria-labelledby="lk-title">
+        <h2 id="lk-title">View gradesheet</h2>
+        <p>Both details must match the college records.</p>
+        <form id="lookup-form" autocomplete="off" novalidate>
+          <div class="fld">
+            <label for="symbol">Symbol no. / Roll no.</label>
+            <input id="symbol" name="symbol" inputmode="text" autocapitalize="characters" spellcheck="false"
+              placeholder="e.g. 20820101" required>
+          </div>
+          <div class="fld">
+            <label id="dob-label" for="dob-y">Date of birth</label>
+            <div class="dob" role="group" aria-labelledby="dob-label">
+              <input id="dob-y" inputmode="numeric" maxlength="4" placeholder="Year" aria-label="Year of birth"
+                required>
+              <input id="dob-m" inputmode="numeric" maxlength="2" placeholder="Month" aria-label="Month of birth"
+                required>
+              <input id="dob-d" inputmode="numeric" maxlength="2" placeholder="Day" aria-label="Day of birth" required>
+            </div>
+          </div>
+          <button class="btn pri block" id="go" type="submit">View result</button>
+        </form>
+        <div id="lk-msg" role="status" aria-live="polite"></div>
+      </section>
+
+      <section id="sheet" class="sheetwrap" hidden>
+        <div class="sheetbar">
+          <div class="fld"><label for="term">Semester / year</label><select id="term"></select></div>
+          <button class="btn" id="print" type="button">Print</button>
+          <button class="btn" id="again" type="button">Check another result</button>
+        </div>
+        <div id="rc"></div>
+      </section>
+    </main>
+  </div>
+  <script src="js/core.js"></script>
+  <script src="js/student.js"></script>
+</body>
+
+</html>

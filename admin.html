@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Result Portal Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="gate-page" id="page">
+
+<!-- Sign in / first-time setup -->
+<div id="gate" class="split" hidden>
+  <aside class="hero">
+    <div><div class="crest" aria-hidden="true">R</div></div>
+    <div>
+      <p class="college">Administration</p>
+      <h1>Result desk sign in</h1>
+    </div>
+    <ol>
+      <li>Add programs, subjects and students.</li>
+      <li>Enter or import marks and check the results.</li>
+      <li>Publish. Students then view their own gradesheet with symbol number and date of birth.</li>
+    </ol>
+    <p class="foot"><a href="notice_page.html" style="margin-right:12px">Campus notice board</a> <a href="index.html">Student result page</a></p>
+  </aside>
+  <main class="panel"><section class="formcard" id="gate-card" aria-live="polite"></section></main>
+</div>
+
+<!-- Admin console -->
+<div id="app" hidden>
+  <header class="mast">
+    <div class="mast-in">
+      <div class="brand">
+        <div class="crest" aria-hidden="true">R</div>
+        <div><h1 id="hname">Result desk</h1><p id="hsub"></p></div>
+        <div class="who">
+          <span id="whoami"></span>
+          <a class="btn sm" href="notice_page.html" target="_blank" rel="noopener">Notice board ↗</a>
+          <a class="btn sm" href="index.html" target="_blank" rel="noopener">Student page ↗</a>
+          <button class="btn sm" id="signout" type="button">Sign out</button>
+        </div>
+      </div>
+      <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+    </div>
+  </header>
+  <div class="shell"><main id="view"></main></div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="modalroot"></div>
+
+<script src="js/core.js"></script>
+<script src="js/seed.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
