@@ -3,33 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hetauda Campus | Notice Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Hetauda Campus | Next-Gen Notice Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --primary: #0284c7;
-  --primary-glow: rgba(2, 132, 199, 0.4);
-  --neon-cyan: #00f2fe;
-  --neon-purple: #9d4edd;
-  --neon-pink: #f43f5e;
-  --neon-green: #10b981;
-  --neon-amber: #f59e0b;
+  --bg-dark: #030712;
+  --panel-bg: rgba(15, 23, 42, 0.75);
+  --card-bg: rgba(30, 41, 59, 0.4);
+  --card-hover: rgba(30, 41, 59, 0.85);
   
-  --bg-gradient: linear-gradient(135deg, #070913 0%, #0d1322 50%, #060b19 100%);
-  --panel-bg: rgba(15, 23, 42, 0.65);
-  --panel-border: rgba(255, 255, 255, 0.08);
-  --card-bg: rgba(30, 41, 59, 0.45);
-  --card-hover: rgba(30, 41, 59, 0.75);
+  --neon-cyan: #00f2fe;
+  --neon-cyan-glow: rgba(0, 242, 254, 0.4);
+  --neon-pink: #ff007f;
+  --neon-pink-glow: rgba(255, 0, 127, 0.45);
+  --neon-purple: #9d4edd;
+  --neon-purple-glow: rgba(157, 78, 221, 0.4);
+  --neon-amber: #ffb703;
+  --neon-green: #10b981;
   
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(0, 242, 254, 0.3);
+  
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --radius-lg: 16px;
-  --radius-md: 10px;
-  --radius-sm: 6px;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * {
@@ -40,96 +41,132 @@
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg-gradient);
-  background-attachment: fixed;
+  background: var(--bg-dark);
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* BACKGROUND GLOW ACCENTS */
-.glow-orb-1 {
+/* HIGH-IMPACT AMBIENT GLOW & GRID OVERLAY */
+.bg-grid {
   position: fixed;
-  top: -100px;
-  left: 10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(0,0,0,0) 70%);
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
 }
 
-.glow-orb-2 {
+.ambient-orb {
   position: fixed;
-  bottom: 5%;
-  right: 5%;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 12s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+  top: -10%;
+  left: 15%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, rgba(0,0,0,0) 70%);
-  pointer-events: none;
-  z-index: 0;
+  background: radial-gradient(circle, var(--neon-cyan-glow), transparent 70%);
 }
 
-/* MAIN CONTAINER */
+.orb-2 {
+  bottom: -10%;
+  right: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--neon-purple-glow), transparent 70%);
+}
+
+.orb-3 {
+  top: 40%;
+  left: 45%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--neon-pink-glow), transparent 70%);
+  opacity: 0.5;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 50px) scale(1.15); }
+}
+
+/* APP FRAMEWORK */
 .app {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
   z-index: 1;
-  padding: 0 16px;
+  padding: 0 20px;
 }
 
 /* HEADER */
 .header {
   background: var(--panel-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  padding: 12px 24px;
-  margin-top: 16px;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 14px 28px;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5),
+              inset 0 1px 0 0 rgba(255,255,255,0.1);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+}
+
+.logo-box {
+  position: relative;
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--neon-cyan), var(--primary));
-  color: #000;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #00f2fe 0%, #7928ca 100%);
+  color: #fff;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
-  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
+  box-shadow: 0 0 20px var(--neon-cyan-glow);
 }
 
 .brand-text h2 {
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #fff, #cbd5e1);
+  background: linear-gradient(90deg, #ffffff, #94a3b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .brand-text p {
-  color: var(--text-muted);
+  color: var(--neon-cyan);
   font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .status-badge {
@@ -138,324 +175,344 @@ body {
   gap: 8px;
   padding: 6px 14px;
   background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   color: var(--neon-green);
-  border-radius: 20px;
+  border-radius: 30px;
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
 }
 
-.status-dot {
-  width: 6px;
-  height: 6px;
+.status-pulse {
+  width: 8px;
+  height: 8px;
   background: var(--neon-green);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--neon-green);
-  animation: pulse-dot 2s infinite;
+  box-shadow: 0 0 10px var(--neon-green);
+  animation: pulseNeon 1.8s infinite ease-in-out;
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+@keyframes pulseNeon {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
 }
 
-/* MAIN LAYOUT */
+/* MAIN CONTENT */
 .main {
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
-  gap: 16px;
+  padding: 24px 0;
+  gap: 20px;
 }
 
-/* WELCOME BAR */
+/* WELCOME HERO */
 .welcome {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
-  padding: 4px 8px;
+  padding: 8px 4px;
 }
 
-.welcome-text h1 {
-  font-size: 22px;
+.welcome-title h1 {
+  font-size: 28px;
   font-weight: 800;
-  background: linear-gradient(90deg, #ffffff, var(--neon-cyan));
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, #ffffff 30%, var(--neon-cyan) 70%, var(--neon-purple) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.welcome-text p {
+.welcome-title p {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
+  margin-top: 4px;
 }
 
-.primary-btn {
-  background: linear-gradient(135deg, var(--primary), #0369a1);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--radius-md);
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
-}
-
-.primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
-  background: linear-gradient(135deg, #38bdf8, var(--primary));
-}
-
-/* STATS GRID */
+/* COMPACT IMPACT STATS GRID */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
 }
 
 .stat-card {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
-.stat-card::before {
+.stat-card::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--neon-cyan);
-  opacity: 0.7;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
-
-.stat-card:nth-child(2)::before { background: var(--neon-pink); }
-.stat-card:nth-child(3)::before { background: var(--neon-purple); }
-.stat-card:nth-child(4)::before { background: var(--neon-amber); }
 
 .stat-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,0.6);
 }
 
+.stat-card:hover::after { opacity: 1; }
+
+.stat-card:nth-child(1) .stat-icon { color: var(--neon-cyan); background: rgba(0, 242, 254, 0.1); border-color: rgba(0, 242, 254, 0.2); }
+.stat-card:nth-child(2) .stat-icon { color: var(--neon-pink); background: rgba(255, 0, 127, 0.1); border-color: rgba(255, 0, 127, 0.2); }
+.stat-card:nth-child(3) .stat-icon { color: var(--neon-purple); background: rgba(157, 78, 221, 0.1); border-color: rgba(157, 78, 221, 0.2); }
+.stat-card:nth-child(4) .stat-icon { color: var(--neon-amber); background: rgba(255, 183, 3, 0.1); border-color: rgba(255, 183, 3, 0.2); }
+
 .stat-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  color: var(--neon-cyan);
+  font-size: 18px;
+  border: 1px solid transparent;
 }
 
-.stat-card:nth-child(2) .stat-icon { color: var(--neon-pink); }
-.stat-card:nth-child(3) .stat-icon { color: var(--neon-purple); }
-.stat-card:nth-child(4) .stat-icon { color: var(--neon-amber); }
-
-.stat-info h3 {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.1;
+.stat-val {
+  font-size: 22px;
+  font-weight: 800;
+  font-family: var(--font-mono);
   color: #fff;
+  line-height: 1;
 }
 
-.stat-info p {
+.stat-lbl {
   color: var(--text-muted);
   font-size: 11px;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
-/* CONTENT LAYOUT */
+/* MAIN CONTENT GRID */
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 16px;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
   align-items: start;
 }
 
+/* PANEL CONTAINER */
 .panel {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
 }
 
-.panel-header {
+.panel-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--panel-border);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.panel-header h2 {
+.panel-head h2 {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--neon-cyan);
-}
-
-/* CONTROLS (SEARCH & CATEGORIES COMPACT) */
-.controls-bar {
+  letter-spacing: 1px;
+  color: #fff;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.filter-row {
-  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.search-box {
+.panel-head h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 14px;
+  background: var(--neon-cyan);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* CONTROLS (SEARCH & CATEGORIES) */
+.controls-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.search-field {
   flex: 1;
   position: relative;
 }
 
-.search-box input {
+.search-field input {
   width: 100%;
-  padding: 8px 12px 8px 32px;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
+  padding: 10px 14px 10px 38px;
+  background: rgba(3, 7, 18, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
   color: #fff;
   font-size: 12px;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
 }
 
-.search-box::before {
-  content: "🔍";
+.search-field::before {
+  content: "⚡";
   position: absolute;
-  left: 10px;
+  left: 12px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 11px;
-  opacity: 0.5;
+  font-size: 12px;
+  opacity: 0.6;
 }
 
-.search-box input:focus {
+.search-field input:focus {
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 15px var(--neon-cyan-glow);
 }
 
-.select-custom {
-  padding: 8px 12px;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
+.sort-select {
+  padding: 0 14px;
+  background: rgba(3, 7, 18, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
   color: var(--text-muted);
   font-size: 12px;
   outline: none;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.select-custom:focus {
+.sort-select:focus {
   border-color: var(--neon-cyan);
 }
 
-/* COMPACT PILL CATEGORIES */
-.categories-scroll {
+/* CATEGORY CHIPS */
+.category-pills {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
-.categories-scroll::-webkit-scrollbar {
-  height: 3px;
-}
+.category-pills::-webkit-scrollbar { display: none; }
 
-.categories-scroll::-webkit-scrollbar-thumb {
-  background: var(--panel-border);
-  border-radius: 3px;
-}
-
-.cat-chip {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--panel-border);
+.chip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  padding: 4px 10px;
-  border-radius: 20px;
+  padding: 6px 14px;
+  border-radius: 30px;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.cat-chip:hover {
+.chip:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #fff;
 }
 
-.cat-chip.active {
+.chip.active {
   background: rgba(0, 242, 254, 0.12);
   color: var(--neon-cyan);
   border-color: var(--neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 12px var(--neon-cyan-glow);
 }
 
-/* ANIMATED NOTICE CARDS */
-.notice-list {
+/* HIGH-IMPACT NOTICE CARDS */
+.notice-feed {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .notice-card {
   background: var(--card-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fadeIn 0.3s ease-out forwards;
+  gap: 10px;
   position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: cardSlide 0.4s ease-out forwards;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes cardSlide {
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.notice-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--neon-cyan);
+  opacity: 0.4;
+  transition: all 0.3s ease;
 }
 
 .notice-card:hover {
   background: var(--card-hover);
-  border-color: rgba(0, 242, 254, 0.3);
-  transform: translateX(3px);
-  box-shadow: -3px 0 0 var(--neon-cyan), 0 4px 16px rgba(0,0,0,0.3);
+  border-color: var(--border-glow);
+  transform: translateX(4px);
+  box-shadow: 0 8px 25px -5px rgba(0,0,0,0.5);
+}
+
+.notice-card:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* IMPORTANT CARD STATE */
+.notice-card.is-important::before {
+  background: var(--neon-pink);
+  opacity: 1;
+  box-shadow: 0 0 10px var(--neon-pink);
 }
 
 .notice-card.is-important {
-  border-left: 3px solid var(--neon-pink);
+  background: rgba(255, 0, 127, 0.04);
+  border-color: rgba(255, 0, 127, 0.2);
 }
 
 .notice-card.is-important:hover {
-  box-shadow: -3px 0 0 var(--neon-pink), 0 4px 16px rgba(244, 63, 94, 0.2);
+  border-color: rgba(255, 0, 127, 0.5);
+  box-shadow: 0 8px 25px -5px rgba(255, 0, 127, 0.2);
 }
 
 .card-top {
@@ -464,260 +521,207 @@ body {
   align-items: center;
 }
 
-.badge-group {
+.badge-row {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
-.tag-badge {
+.badge {
   font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 4px;
-  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
-  background: rgba(2, 132, 199, 0.2);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+  background: rgba(0, 242, 254, 0.1);
+  color: var(--neon-cyan);
+  border: 1px solid rgba(0, 242, 254, 0.25);
 }
 
-.tag-badge.important {
-  background: rgba(244, 63, 94, 0.15);
+.badge.important {
+  background: rgba(255, 0, 127, 0.15);
   color: var(--neon-pink);
-  border-color: rgba(244, 63, 94, 0.3);
-  box-shadow: 0 0 8px rgba(244, 63, 94, 0.2);
+  border-color: rgba(255, 0, 127, 0.4);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+  animation: pulseBadge 2s infinite ease-in-out;
 }
 
-.notice-date-text {
+@keyframes pulseBadge {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.date-stamp {
   font-size: 11px;
+  font-family: var(--font-mono);
   color: var(--text-dim);
 }
 
 .notice-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #f1f5f9;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
   line-height: 1.4;
 }
 
 .notice-desc {
   color: var(--text-muted);
-  font-size: 11.5px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
-.card-bottom {
+.card-foot {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2px;
-  padding-top: 6px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.06);
 }
 
-.notice-dept {
-  font-size: 10.5px;
+.dept-info {
+  font-size: 11px;
   color: var(--text-dim);
+  font-weight: 500;
 }
 
 .dl-btn {
   font-size: 11px;
+  font-family: var(--font-mono);
   color: var(--neon-cyan);
   text-decoration: none;
-  font-weight: 600;
-  display: flex;
+  font-weight: 700;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
   background: rgba(0, 242, 254, 0.08);
-  border: 1px solid rgba(0, 242, 254, 0.2);
-  transition: all 0.2s;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  transition: all 0.25s ease;
 }
 
 .dl-btn:hover {
   background: var(--neon-cyan);
   color: #000;
-  box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 15px var(--neon-cyan-glow);
 }
 
 /* SIDEBAR LAYOUT */
-.sidebar {
+.sidebar-stack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .side-card {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-lg);
-  padding: 14px;
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 18px;
 }
 
 .side-card h3 {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 1px;
   color: var(--neon-purple);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.compact-list {
+.side-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.side-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.side-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.side-row span:first-child { color: var(--text-muted); }
+.side-row span:last-child { color: #fff; font-weight: 700; font-family: var(--font-mono); }
+
+.nav-links {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.compact-item {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.compact-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.compact-item span:first-child { color: var(--text-muted); }
-.compact-item span:last-child { color: var(--text-main); font-weight: 600; }
-
-.quick-nav-links {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 6px;
-}
-
-.quick-nav-links a {
+.nav-links a {
   text-decoration: none;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 7px 10px;
-  border-radius: var(--radius-sm);
-  font-size: 11px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
   border: 1px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.25s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.quick-nav-links a:hover {
+.nav-links a::after {
+  content: "→";
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.25s ease;
+}
+
+.nav-links a:hover {
   color: var(--neon-cyan);
   border-color: rgba(0, 242, 254, 0.3);
   background: rgba(0, 242, 254, 0.05);
-  transform: translateX(2px);
+  transform: translateX(3px);
+}
+
+.nav-links a:hover::after {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* FOOTER */
 .footer {
   margin-top: auto;
-  padding: 14px 20px;
+  padding: 16px 24px;
   background: var(--panel-bg);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   font-size: 11px;
+  font-family: var(--font-mono);
   color: var(--text-dim);
-  margin-bottom: 16px;
-}
-
-/* MODAL MODERN GLOW */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(3, 7, 18, 0.8);
-  backdrop-filter: blur(8px);
-  padding: 16px;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-overlay.show { display: flex; }
-
-.modal-box {
-  background: #0f172a;
-  border: 1px solid rgba(0, 242, 254, 0.3);
-  box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
-  width: 100%;
-  max-width: 460px;
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.modal-box h2 {
-  font-size: 16px;
-  color: #fff;
-  margin-bottom: 14px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 10px;
-}
-
-.form-field label {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.form-field input,
-.form-field textarea,
-.form-field select {
-  padding: 8px 10px;
-  background: rgba(2, 6, 23, 0.6);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--radius-sm);
-  color: #fff;
-  font-size: 12px;
-}
-
-.form-field textarea {
-  min-height: 70px;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid var(--panel-border);
-  color: var(--text-muted);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 12px;
+  margin-bottom: 20px;
 }
 
 .empty-state {
   text-align: center;
-  padding: 30px;
+  padding: 40px 20px;
   color: var(--text-dim);
   font-size: 12px;
+  font-family: var(--font-mono);
   display: none;
 }
 
-@media(max-width: 768px) {
+@media(max-width: 850px) {
   .content-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -726,66 +730,70 @@ body {
 
 <body>
 
-<div class="glow-orb-1"></div>
-<div class="glow-orb-2"></div>
+<!-- DYNAMIC AMBIENT GLOW SYSTEM -->
+<div class="bg-grid"></div>
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
 
 <div class="app">
 
   <!-- HEADER -->
   <header class="header">
     <div class="brand">
-      <div class="logo">HC</div>
+      <div class="logo-box">
+        <div class="logo">HC</div>
+      </div>
       <div class="brand-text">
         <h2>HETAUDA CAMPUS</h2>
-        <p>Bagmati University | Notice Portal</p>
+        <p>BAGMATI UNIVERSITY • NOTICE PORTAL</p>
       </div>
     </div>
     <div class="status-badge">
-      <span class="status-dot"></span> Online Engine
+      <span class="status-pulse"></span> LIVE SYNC
     </div>
   </header>
 
   <main class="main">
 
-    <!-- WELCOME & ACTION -->
+    <!-- WELCOME -->
     <section class="welcome">
-      <div class="welcome-text">
-        <h1>College Announcements</h1>
-        <p>Real-time official notices and administrative updates.</p>
+      <div class="welcome-title">
+        <h1>This Page is 
+        Currently on Modification<br>
+        (Please follow the official notices from our facebook community)</h1>
+        <p>Real-time stream of academic, exam, and administrative updates.</p>
       </div>
-      <button class="primary-btn" id="openModal">
-        <span>+</span> Publish Notice
-      </button>
     </section>
 
     <!-- COMPACT STATS -->
     <section class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">📋</div>
-        <div class="stat-info">
-          <h3 id="totalNotices">0</h3>
-          <p>Total Notices</p>
-        </div>
-      </div>
-      <div class="stat-card">
         <div class="stat-icon">⚡</div>
-        <div class="stat-info">
-          <h3 id="importantNotices">0</h3>
-          <p>Important</p>
+        <div>
+          <div class="stat-val" id="totalNotices">0</div>
+          <div class="stat-lbl">Total Notices</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">🕒</div>
-        <div class="stat-info">
-          <h3 id="recentNotices">0</h3>
-          <p>7 Days Active</p>
+        <div class="stat-icon">🔥</div>
+        <div>
+          <div class="stat-val" id="importantNotices">0</div>
+          <div class="stat-lbl">High Priority</div>
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-icon">🗂️</div>
-        <div class="stat-info">
-          <h3 id="totalCategories">0</h3>
-          <p>Categories</p>
+        <div class="stat-icon">⏱️</div>
+        <div>
+          <div class="stat-val" id="recentNotices">0</div>
+          <div class="stat-lbl">Recent (7 Days)</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏷️</div>
+        <div>
+          <div class="stat-val" id="totalCategories">0</div>
+          <div class="stat-lbl">Categories</div>
         </div>
       </div>
     </section>
@@ -795,85 +803,86 @@ body {
 
       <!-- NOTICE STREAM -->
       <section class="panel">
-        <div class="panel-header">
+        <div class="panel-head">
           <h2>Latest Feed</h2>
-          <span style="font-size: 11px; color: var(--text-dim)">Live Sync</span>
+          <span style="font-size: 11px; font-family: var(--font-mono); color: var(--text-dim)">AUTO-UPDATED</span>
         </div>
 
-        <div class="controls-bar">
-          <div class="filter-row">
-            <div class="search-box">
-              <input type="search" id="searchInput" placeholder="Search notices...">
+        <div class="controls-stack">
+          <div class="search-row">
+            <div class="search-field">
+              <input type="search" id="searchInput" placeholder="Search notices by keyword or department...">
             </div>
-            <select class="select-custom" id="sortSelect">
-              <option value="newest">Newest</option>
-              <option value="oldest">Oldest</option>
+            <select class="sort-select" id="sortSelect">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
             </select>
           </div>
 
           <!-- COMPACT SCROLLABLE CATEGORIES -->
-          <div class="categories-scroll" id="categoryButtons">
-            <button class="cat-chip active" data-category="All">All Feed</button>
-            <button class="cat-chip" data-category="Examination">Examination</button>
-            <button class="cat-chip" data-category="Academic">Academic</button>
-            <button class="cat-chip" data-category="Administration">Administration</button>
-            <button class="cat-chip" data-category="Admission">Admission</button>
-            <button class="cat-chip" data-category="Events">Events</button>
+          <div class="category-pills" id="categoryButtons">
+            <button class="chip active" data-category="All">All Stream</button>
+            <button class="chip" data-category="Examination">Examination</button>
+            <button class="chip" data-category="Academic">Academic</button>
+            <button class="chip" data-category="Administration">Administration</button>
+            <button class="chip" data-category="Admission">Admission</button>
+            <button class="chip" data-category="Events">Events</button>
           </div>
         </div>
 
-        <div class="notice-list" id="noticeList"></div>
+        <div class="notice-feed" id="noticeList"></div>
 
         <div class="empty-state" id="emptyMessage">
-          No announcements matched your search criteria.
+          // NO MATCHING ANNOUNCEMENTS FOUND IN STREAM
         </div>
       </section>
 
       <!-- SIDEBAR -->
-      <aside class="sidebar">
+      <aside class="sidebar-stack">
 
         <div class="side-card">
-          <h3>📌 Key Contacts</h3>
-          <div class="compact-list">
-            <div class="compact-item">
-              <span>Exam Controller</span>
-              <span>Room 102</span>
+          <h3>📌 Important Information</h3>
+          <div class="side-list">
+            <div class="side-row">
+              <span>Examination Section</span>
+              <span>OFFICIAL</span>
             </div>
-            <div class="compact-item">
+            <div class="side-row">
               <span>Academic Admin</span>
-              <span>Room 105</span>
+              <span>OFFICIAL</span>
             </div>
-            <div class="compact-item">
-              <span>Student Affairs</span>
-              <span>Block B</span>
+            <div class="side-row">
+              <span>Student Information</span>
+              <span>UPDATED</span>
             </div>
           </div>
         </div>
 
         <div class="side-card">
           <h3>⚡ Quick Links</h3>
-          <div class="quick-nav-links">
-            <a href="#">Grading System & Results</a>
-            <a href="#">Academic Routine PDF</a>
-            <a href="#">Admission Guidelines</a>
-            <a href="#">University Portal</a>
+          <div class="nav-links">
+            <a href="#">Student Portal</a>
+            <a href="#">Examination Results</a>
+            <a href="#">Academic Calendar</a>
+            <a href="#">College Website</a>
+            <a href="#">Contact Administration</a>
           </div>
         </div>
 
         <div class="side-card">
           <h3>📍 Campus Location</h3>
-          <div class="compact-list">
-            <div class="compact-item">
-              <span>City</span>
-              <span>Hetauda-4</span>
+          <div class="side-list">
+            <div class="side-row">
+              <span>Location</span>
+              <span>HETAUDA-4</span>
             </div>
-            <div class="compact-item">
+            <div class="side-row">
               <span>District</span>
-              <span>Makwanpur</span>
+              <span>MAKWANPUR</span>
             </div>
-            <div class="compact-item">
-              <span>State</span>
-              <span>Bagmati</span>
+            <div class="side-row">
+              <span>University</span>
+              <span>BAGMATI</span>
             </div>
           </div>
         </div>
@@ -885,62 +894,19 @@ body {
   </main>
 
   <footer class="footer">
-    <span>© 2026 Hetauda Campus</span>
-    <span>Powered by HC Notice Engine</span>
+    <span>© 2026 HETAUDA CAMPUS</span>
+    <span>NOTICE MANAGEMENT SYSTEM V2.0</span>
   </footer>
 
-</div>
-
-<!-- PUBLISH MODAL -->
-<div class="modal-overlay" id="noticeModal">
-  <div class="modal-box">
-    <h2>Publish New Notice</h2>
-    <form id="noticeForm">
-      <div class="form-field">
-        <label for="noticeTitle">Notice Title *</label>
-        <input type="text" id="noticeTitle" required maxlength="150">
-      </div>
-      <div class="form-field">
-        <label for="noticeCategory">Category *</label>
-        <select id="noticeCategory" required>
-          <option value="Examination">Examination</option>
-          <option value="Academic">Academic</option>
-          <option value="Administration">Administration</option>
-          <option value="Admission">Admission</option>
-          <option value="Events">Events</option>
-        </select>
-      </div>
-      <div class="form-field">
-        <label for="noticeDescription">Description *</label>
-        <textarea id="noticeDescription" required></textarea>
-      </div>
-      <div class="form-field">
-        <label for="noticeDepartment">Publishing Department</label>
-        <input type="text" id="noticeDepartment" value="Administration">
-      </div>
-      <div class="form-field">
-        <label for="noticeFile">PDF Attachment</label>
-        <input type="file" id="noticeFile" accept=".pdf">
-      </div>
-      <div class="form-field" style="flex-direction: row; align-items: center; gap: 8px;">
-        <input type="checkbox" id="noticeImportant" style="width: auto;">
-        <label for="noticeImportant">Mark as High Priority</label>
-      </div>
-      <div class="form-actions">
-        <button type="button" class="btn-secondary" id="closeModal">Cancel</button>
-        <button type="submit" class="primary-btn">Publish</button>
-      </div>
-    </form>
-  </div>
 </div>
 
 <script>
 const sampleNotices = [
   {
     id: 1,
-    title: "Examination Form Submission Deadline Notice",
+    title: "Examination Form Submission Notice",
     category: "Examination",
-    description: "All students must complete their examination form submission before the deadline set by the Examination Section.",
+    description: "All students are informed to complete their examination form submission within the deadline prescribed by the Examination Section.",
     department: "Examination Section",
     date: "2026-11-06",
     important: true,
@@ -948,51 +914,70 @@ const sampleNotices = [
   },
   {
     id: 2,
-    title: "Updated Academic Calendar & Class Routines",
+    title: "Class Routine and Academic Calendar",
     category: "Academic",
-    description: "The updated semester program schedule and routines are now published for all faculties.",
-    department: "Academic Admin",
+    description: "The updated academic calendar and class schedule for all academic programs are available for students.",
+    department: "Academic Administration",
     date: "2026-11-04",
     important: false,
     attachment: ""
   },
   {
     id: 3,
-    title: "New Student Admission Procedure 2083",
+    title: "Student Admission Information",
     category: "Admission",
-    description: "Application guidelines and criteria for new admissions are now available at the administrative office.",
+    description: "Admission-related information and application procedures are available from the college administration.",
     department: "Admission Section",
     date: "2026-11-02",
+    important: false,
+    attachment: ""
+  },
+  {
+    id: 4,
+    title: "Internal Examination Preparation",
+    category: "Examination",
+    description: "Students are requested to check their respective program and semester examination schedules.",
+    department: "Examination Section",
+    date: "2026-10-30",
+    important: true,
+    attachment: ""
+  },
+  {
+    id: 5,
+    title: "College Academic Activities",
+    category: "Events",
+    description: "Information regarding upcoming academic activities and student participation.",
+    department: "Administration",
+    date: "2026-10-27",
     important: false,
     attachment: ""
   }
 ];
 
-const STORAGE_KEY = "hc_notice_portal_dark_v2";
+const STORAGE_KEY = "hetauda_rms_notices_v2_impact";
+
 let notices = loadNotices();
 let activeCategory = "All";
 
 function loadNotices() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : sampleNotices;
+    if (saved === null) return sampleNotices;
+    const parsed = JSON.parse(saved);
+    return Array.isArray(parsed) ? parsed : sampleNotices;
   } catch {
     return sampleNotices;
   }
 }
 
-function saveNotices() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
-  } catch {
-    alert("Local storage save failed.");
-  }
-}
-
-function escapeHTML(str) {
-  return String(str ?? "").replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  })[c]);
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
 function renderNotices() {
@@ -1000,42 +985,42 @@ function renderNotices() {
   const sort = document.getElementById("sortSelect").value;
 
   let filtered = notices.filter(n => {
-    const catMatch = activeCategory === "All" || n.category === activeCategory;
-    const searchMatch = `${n.title} ${n.description} ${n.department}`.toLowerCase().includes(search);
-    return catMatch && searchMatch;
+    const matchesCategory = activeCategory === "All" || n.category === activeCategory;
+    const matchesSearch = `${n.title} ${n.description} ${n.department} ${n.category}`.toLowerCase().includes(search);
+    return matchesCategory && matchesSearch;
   });
 
   filtered.sort((a, b) => {
-    const comp = String(a.date).localeCompare(String(b.date));
-    return sort === "newest" ? -comp : comp;
+    const comparison = String(a.date).localeCompare(String(b.date));
+    return sort === "newest" ? -comparison : comparison;
   });
 
   const list = document.getElementById("noticeList");
   const empty = document.getElementById("emptyMessage");
 
-  list.innerHTML = filtered.map((n, index) => {
+  list.innerHTML = filtered.map((n, idx) => {
     const isImp = n.important;
     const attachment = n.attachment
-      ? `<a class="dl-btn" href="${escapeHTML(n.attachment)}" download>↓ Attachment</a>`
+      ? `<a class="dl-btn" href="${escapeHTML(n.attachment)}" download>↓ Download PDF</a>`
       : "";
 
     return `
-      <article class="notice-card ${isImp ? 'is-important' : ''}" style="animation-delay: ${index * 0.05}s">
+      <article class="notice-card ${isImp ? 'is-important' : ''}" style="animation-delay: ${idx * 0.05}s">
         <div class="card-top">
-          <div class="badge-group">
-            <span class="tag-badge ${isImp ? 'important' : ''}">
+          <div class="badge-row">
+            <span class="badge ${isImp ? 'important' : ''}">
               ${escapeHTML(n.category)}
             </span>
-            ${isImp ? '<span class="tag-badge important">★ Priority</span>' : ''}
+            ${isImp ? '<span class="badge important">★ Priority</span>' : ''}
           </div>
-          <span class="notice-date-text">${escapeHTML(n.date)}</span>
+          <span class="date-stamp">${escapeHTML(n.date)}</span>
         </div>
 
         <h3 class="notice-title">${escapeHTML(n.title)}</h3>
         <p class="notice-desc">${escapeHTML(n.description)}</p>
 
-        <div class="card-bottom">
-          <span class="notice-dept">Dept: ${escapeHTML(n.department)}</span>
+        <div class="card-foot">
+          <span class="dept-info">Published by: ${escapeHTML(n.department)}</span>
           ${attachment}
         </div>
       </article>
@@ -1049,8 +1034,9 @@ function renderNotices() {
 function updateStats() {
   const today = new Date();
   const recent = notices.filter(n => {
-    const diff = (today - new Date(n.date + "T00:00:00")) / 86400000;
-    return diff >= 0 && diff < 7;
+    const date = new Date(n.date + "T00:00:00");
+    const difference = (today - date) / 86400000;
+    return difference >= 0 && difference < 7;
   });
 
   document.getElementById("totalNotices").textContent = notices.length;
@@ -1062,39 +1048,13 @@ function updateStats() {
 document.getElementById("searchInput").addEventListener("input", renderNotices);
 document.getElementById("sortSelect").addEventListener("change", renderNotices);
 
-document.querySelectorAll(".cat-chip").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".cat-chip").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeCategory = btn.dataset.category;
+document.querySelectorAll(".chip").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    activeCategory = button.dataset.category;
     renderNotices();
   });
-});
-
-const modal = document.getElementById("noticeModal");
-document.getElementById("openModal").onclick = () => modal.classList.add("show");
-document.getElementById("closeModal").onclick = () => modal.classList.remove("show");
-
-document.getElementById("noticeForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const file = document.getElementById("noticeFile").files[0];
-
-  const newNotice = {
-    id: Date.now(),
-    title: document.getElementById("noticeTitle").value.trim(),
-    category: document.getElementById("noticeCategory").value,
-    description: document.getElementById("noticeDescription").value.trim(),
-    department: document.getElementById("noticeDepartment").value.trim(),
-    date: new Date().toISOString().slice(0, 10),
-    important: document.getElementById("noticeImportant").checked,
-    attachment: file ? URL.createObjectURL(file) : ""
-  };
-
-  notices.unshift(newNotice);
-  saveNotices();
-  document.getElementById("noticeForm").reset();
-  modal.classList.remove("show");
-  renderNotices();
 });
 
 renderNotices();
