@@ -1,22 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hetauda Campus | Notice Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --primary: #173b65;
-  --secondary: #24558a;
-  --bg: #f3f6fa;
-  --white: #ffffff;
-  --text: #263548;
-  --muted: #718096;
-  --border: #e4eaf1;
-  --red: #d94848;
-  --green: #21865a;
+  --primary: #0284c7;
+  --primary-glow: rgba(2, 132, 199, 0.4);
+  --neon-cyan: #00f2fe;
+  --neon-purple: #9d4edd;
+  --neon-pink: #f43f5e;
+  --neon-green: #10b981;
+  --neon-amber: #f59e0b;
+  
+  --bg-gradient: linear-gradient(135deg, #070913 0%, #0d1322 50%, #060b19 100%);
+  --panel-bg: rgba(15, 23, 42, 0.65);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(30, 41, 59, 0.45);
+  --card-hover: rgba(30, 41, 59, 0.75);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
 }
 
 * {
@@ -26,575 +39,695 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: var(--font-sans);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-button, input, select, textarea {
-  font: inherit;
+/* BACKGROUND GLOW ACCENTS */
+.glow-orb-1 {
+  position: fixed;
+  top: -100px;
+  left: 10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-button {
-  cursor: pointer;
+.glow-orb-2 {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.1) 0%, rgba(0,0,0,0) 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* MAIN FRAME */
-
+/* MAIN CONTAINER */
 .app {
-  max-width: 1600px;
-  margin: auto;
+  max-width: 1400px;
+  margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
+  padding: 0 16px;
 }
 
 /* HEADER */
-
 .header {
-  background: var(--white);
-  padding: 15px 28px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 12px 24px;
+  margin-top: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--panel-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
-  background: var(--primary);
-  color: white;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--primary));
+  color: #000;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 23px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  letter-spacing: -0.5px;
 }
 
-.brand h2 {
-  font-size: 19px;
-  color: var(--primary);
+.brand-text h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.brand p {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 4px;
+.brand-text p {
+  color: var(--text-muted);
+  font-size: 11px;
 }
 
-.header-right {
+.status-badge {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.status {
-  padding: 7px 13px;
-  background: #e8f5ed;
-  color: var(--green);
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--neon-green);
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
-/* MAIN CONTENT */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--neon-green);
+  animation: pulse-dot 2s infinite;
+}
 
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* MAIN LAYOUT */
 .main {
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  gap: 20px;
+  padding: 20px 0;
+  gap: 16px;
 }
 
-/* WELCOME */
-
+/* WELCOME BAR */
 .welcome {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   flex-wrap: wrap;
+  padding: 4px 8px;
 }
 
-.welcome h1 {
-  color: var(--primary);
-  font-size: 27px;
+.welcome-text h1 {
+  font-size: 22px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffffff, var(--neon-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.welcome p {
-  color: var(--muted);
-  margin-top: 7px;
-  font-size: 14px;
+.welcome-text p {
+  color: var(--text-muted);
+  font-size: 12px;
 }
 
 .primary-btn {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #0369a1);
   color: white;
-  border: 0;
-  border-radius: 7px;
-  padding: 11px 17px;
-  font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
 }
 
 .primary-btn:hover {
-  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+  background: linear-gradient(135deg, #38bdf8, var(--primary));
 }
 
-/* STATISTICS FLEXBOX */
-
-.stats {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
 }
 
 .stat-card {
-  flex: 1 1 170px;
-  background: var(--white);
-  padding: 19px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--neon-cyan);
+  opacity: 0.7;
+}
+
+.stat-card:nth-child(2)::before { background: var(--neon-pink); }
+.stat-card:nth-child(3)::before { background: var(--neon-purple); }
+.stat-card:nth-child(4)::before { background: var(--neon-amber); }
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .stat-icon {
-  width: 45px;
-  height: 45px;
-  background: #eaf0f8;
-  color: var(--primary);
-  border-radius: 9px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 21px;
+  font-size: 16px;
+  color: var(--neon-cyan);
 }
 
-.stat-card h3 {
-  font-size: 25px;
-  margin-bottom: 4px;
+.stat-card:nth-child(2) .stat-icon { color: var(--neon-pink); }
+.stat-card:nth-child(3) .stat-icon { color: var(--neon-purple); }
+.stat-card:nth-child(4) .stat-icon { color: var(--neon-amber); }
+
+.stat-info h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
 }
 
-.stat-card p {
-  color: var(--muted);
-  font-size: 12px;
+.stat-info p {
+  color: var(--text-muted);
+  font-size: 11px;
 }
 
-/* CONTENT FRAME */
-
-.content {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.notices-section {
-  flex: 1 1 70%;
-  min-width: 0;
-}
-
-.sidebar {
-  flex: 0 1 300px;
-  min-width: 240px;
-  display: flex;
-  flex-direction: column;
+/* CONTENT LAYOUT */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
   gap: 16px;
+  align-items: start;
 }
-
-/* PANEL */
 
 .panel {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 19px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
-.panel-title {
+.panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 17px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--panel-border);
 }
 
-.panel-title h2 {
-  color: var(--primary);
-  font-size: 17px;
+.panel-header h2 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--neon-cyan);
 }
 
-/* SEARCH AND FILTER */
-
-.filters {
+/* CONTROLS (SEARCH & CATEGORIES COMPACT) */
+.controls-bar {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 17px;
+  margin-bottom: 14px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 8px;
 }
 
 .search-box {
-  flex: 1 1 220px;
+  flex: 1;
+  position: relative;
 }
 
-.search-box input,
-.filters select {
+.search-box input {
   width: 100%;
-  padding: 11px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  outline: none;
-  background: white;
-  color: var(--text);
-}
-
-.search-box input:focus,
-.filters select:focus {
-  border-color: var(--secondary);
-}
-
-.filters select {
-  flex: 0 1 170px;
-}
-
-/* CATEGORY BUTTONS */
-
-.categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.category-btn {
-  border: 1px solid var(--border);
-  background: white;
-  color: var(--muted);
-  padding: 8px 13px;
-  border-radius: 20px;
+  padding: 8px 12px 8px 32px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  color: #fff;
   font-size: 12px;
+  outline: none;
+  transition: all 0.2s;
 }
 
-.category-btn.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+.search-box::before {
+  content: "🔍";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  opacity: 0.5;
 }
 
-/* NOTICE CARDS */
+.search-box input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
 
+.select-custom {
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-custom:focus {
+  border-color: var(--neon-cyan);
+}
+
+/* COMPACT PILL CATEGORIES */
+.categories-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.categories-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+
+.categories-scroll::-webkit-scrollbar-thumb {
+  background: var(--panel-border);
+  border-radius: 3px;
+}
+
+.cat-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--panel-border);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.cat-chip:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.cat-chip.active {
+  background: rgba(0, 242, 254, 0.12);
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+/* ANIMATED NOTICE CARDS */
 .notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notice-card {
+  background: var(--card-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeIn 0.3s ease-out forwards;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.notice-card:hover {
+  background: var(--card-hover);
+  border-color: rgba(0, 242, 254, 0.3);
+  transform: translateX(3px);
+  box-shadow: -3px 0 0 var(--neon-cyan), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.notice-card.is-important {
+  border-left: 3px solid var(--neon-pink);
+}
+
+.notice-card.is-important:hover {
+  box-shadow: -3px 0 0 var(--neon-pink), 0 4px 16px rgba(244, 63, 94, 0.2);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.tag-badge {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  background: rgba(2, 132, 199, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.tag-badge.important {
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--neon-pink);
+  border-color: rgba(244, 63, 94, 0.3);
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.2);
+}
+
+.notice-date-text {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.notice-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+  line-height: 1.4;
+}
+
+.notice-desc {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.notice-dept {
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+
+.dl-btn {
+  font-size: 11px;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 242, 254, 0.08);
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  transition: all 0.2s;
+}
+
+.dl-btn:hover {
+  background: var(--neon-cyan);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+/* SIDEBAR LAYOUT */
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.notice {
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  transition: .2s;
+.side-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
 }
 
-.notice:hover {
-  border-color: #9db3cb;
-  box-shadow: 0 3px 12px rgba(0,0,0,.04);
-}
-
-.notice-top,
-.notice-bottom {
+.side-card h3 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--neon-purple);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 9px;
+  gap: 6px;
 }
 
-.tags {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.tag {
-  font-size: 11px;
-  padding: 5px 9px;
-  border-radius: 20px;
-  background: #eaf0f8;
-  color: var(--primary);
-  font-weight: bold;
-}
-
-.tag.important {
-  background: #fff0ef;
-  color: var(--red);
-}
-
-.tag.academic {
-  background: #e8f5ed;
-  color: var(--green);
-}
-
-.notice-date {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.notice h3 {
-  font-size: 15px;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.notice-description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.notice-meta {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.download-btn {
-  text-decoration: none;
-  background: #edf3fa;
-  color: var(--primary);
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.download-btn:hover {
-  background: #dce8f5;
-}
-
-.empty {
-  text-align: center;
-  padding: 35px;
-  color: var(--muted);
-  display: none;
-}
-
-/* SIDEBAR */
-
-.side-box {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 17px;
-}
-
-.side-box h3 {
-  color: var(--primary);
-  font-size: 15px;
-  margin-bottom: 14px;
-}
-
-.side-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  border-bottom: 1px solid var(--border);
-  padding: 11px 0;
-  font-size: 12px;
-}
-
-.side-item:last-child {
-  border-bottom: 0;
-}
-
-.side-item span:last-child {
-  color: var(--muted);
-  text-align: right;
-}
-
-.quick-links {
+.compact-list {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 8px;
 }
 
-.quick-links a {
+.compact-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.compact-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.compact-item span:first-child { color: var(--text-muted); }
+.compact-item span:last-child { color: var(--text-main); font-weight: 600; }
+
+.quick-nav-links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.quick-nav-links a {
   text-decoration: none;
-  color: var(--secondary);
-  background: #f3f6fa;
-  padding: 11px;
-  border-radius: 6px;
-  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.quick-nav-links a:hover {
+  color: var(--neon-cyan);
+  border-color: rgba(0, 242, 254, 0.3);
+  background: rgba(0, 242, 254, 0.05);
+  transform: translateX(2px);
 }
 
 /* FOOTER */
-
 .footer {
-  background: var(--primary);
-  color: white;
-  padding: 18px 25px;
+  margin-top: auto;
+  padding: 14px 20px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: auto;
-  font-size: 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
 }
 
-.footer span {
-  opacity: .8;
-}
-
-/* MODAL */
-
-.modal {
+/* MODAL MODERN GLOW */
+.modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 10;
-  background: rgba(12,25,43,.6);
-  padding: 15px;
+  z-index: 100;
+  background: rgba(3, 7, 18, 0.8);
+  backdrop-filter: blur(8px);
+  padding: 16px;
   align-items: center;
   justify-content: center;
 }
 
-.modal.show {
-  display: flex;
-}
+.modal-overlay.show { display: flex; }
 
-.modal-content {
-  background: white;
+.modal-box {
+  background: #0f172a;
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.15);
   width: 100%;
-  max-width: 540px;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 12px;
-  padding: 23px;
+  max-width: 460px;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-content h2 {
-  color: var(--primary);
-  margin-bottom: 18px;
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
+.modal-box h2 {
+  font-size: 16px;
+  color: #fff;
   margin-bottom: 14px;
 }
 
-.form-group label {
-  font-size: 13px;
-  font-weight: bold;
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-  padding: 11px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  width: 100%;
+.form-field label {
+  font-size: 11px;
+  color: var(--text-muted);
 }
 
-.form-group textarea {
-  min-height: 100px;
-  resize: vertical;
+.form-field input,
+.form-field textarea,
+.form-field select {
+  padding: 8px 10px;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 12px;
+}
+
+.form-field textarea {
+  min-height: 70px;
 }
 
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
+  margin-top: 14px;
 }
 
-.close-btn {
-  background: #edf0f5;
-  border: 0;
-  padding: 10px 15px;
-  border-radius: 6px;
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
 }
 
-/* RESPONSIVE */
-
-@media(max-width: 850px) {
-  .content {
-    flex-direction: column;
-  }
-
-  .notices-section,
-  .sidebar {
-    width: 100%;
-    flex: 1 1 auto;
-  }
-
-  .sidebar {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .side-box {
-    flex: 1 1 220px;
-  }
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: var(--text-dim);
+  font-size: 12px;
+  display: none;
 }
 
-@media(max-width: 550px) {
-  .header {
-    padding: 12px;
-  }
-
-  .brand h2 {
-    font-size: 15px;
-  }
-
-  .main {
-    padding: 13px;
-  }
-
-  .welcome h1 {
-    font-size: 22px;
-  }
-
-  .header-right .status {
-    display: none;
-  }
-
-  .stat-card {
-    flex: 1 1 130px;
-    padding: 13px;
-  }
-
-  .panel {
-    padding: 13px;
-  }
-
-  .notice {
-    padding: 13px;
-  }
-
-  .footer {
-    padding: 16px;
-  }
+@media(max-width: 768px) {
+  .content-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 
 <body>
+
+<div class="glow-orb-1"></div>
+<div class="glow-orb-2"></div>
 
 <div class="app">
 
@@ -602,199 +735,172 @@ button {
   <header class="header">
     <div class="brand">
       <div class="logo">HC</div>
-      <div>
+      <div class="brand-text">
         <h2>HETAUDA CAMPUS</h2>
-        <p>Bagmati University | Hetauda, Nepal</p>
+        <p>Bagmati University | Notice Portal</p>
       </div>
     </div>
-
-    <div class="header-right">
-      <span class="status">● Official Notice Portal</span>
+    <div class="status-badge">
+      <span class="status-dot"></span> Online Engine
     </div>
   </header>
 
   <main class="main">
 
-    <!-- WELCOME -->
+    <!-- WELCOME & ACTION -->
     <section class="welcome">
-      <div>
-        <h1>College Notice Board</h1>
-        <p>Official announcements and academic information.</p>
+      <div class="welcome-text">
+        <h1>College Announcements</h1>
+        <p>Real-time official notices and administrative updates.</p>
       </div>
-
       <button class="primary-btn" id="openModal">
-        + Publish Notice
+        <span>+</span> Publish Notice
       </button>
     </section>
 
-    <!-- STATISTICS -->
-    <section class="stats">
-
+    <!-- COMPACT STATS -->
+    <section class="stats-grid">
       <div class="stat-card">
-        <div class="stat-icon">▤</div>
-        <div>
+        <div class="stat-icon">📋</div>
+        <div class="stat-info">
           <h3 id="totalNotices">0</h3>
           <p>Total Notices</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">★</div>
-        <div>
+        <div class="stat-icon">⚡</div>
+        <div class="stat-info">
           <h3 id="importantNotices">0</h3>
-          <p>Important Notices</p>
+          <p>Important</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">◷</div>
-        <div>
+        <div class="stat-icon">🕒</div>
+        <div class="stat-info">
           <h3 id="recentNotices">0</h3>
-          <p>Recent Notices (7 days)</p>
+          <p>7 Days Active</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon">▣</div>
-        <div>
+        <div class="stat-icon">🗂️</div>
+        <div class="stat-info">
           <h3 id="totalCategories">0</h3>
           <p>Categories</p>
         </div>
       </div>
-
     </section>
 
-    <!-- MAIN CONTENT -->
-    <section class="content">
+    <!-- MAIN BOARD & SIDEBAR -->
+    <div class="content-grid">
 
-      <!-- NOTICE AREA -->
-      <div class="notices-section">
-        <div class="panel">
+      <!-- NOTICE STREAM -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Latest Feed</h2>
+          <span style="font-size: 11px; color: var(--text-dim)">Live Sync</span>
+        </div>
 
-          <div class="panel-title">
-            <h2>Latest Announcements</h2>
-            <span class="notice-date">Updated regularly</span>
-          </div>
-
-          <!-- SEARCH -->
-          <div class="filters">
+        <div class="controls-bar">
+          <div class="filter-row">
             <div class="search-box">
-              <input
-                type="search"
-                id="searchInput"
-                placeholder="Search notice title or keywords..."
-              >
+              <input type="search" id="searchInput" placeholder="Search notices...">
             </div>
-
-            <select id="sortSelect" aria-label="Sort notices">
-              <option value="newest">Newest first</option>
-              <option value="oldest">Oldest first</option>
+            <select class="select-custom" id="sortSelect">
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
             </select>
           </div>
 
-          <!-- CATEGORY FILTER -->
-          <div class="categories" id="categoryButtons">
-            <button class="category-btn active" data-category="All">All</button>
-            <button class="category-btn" data-category="Examination">Examination</button>
-            <button class="category-btn" data-category="Academic">Academic</button>
-            <button class="category-btn" data-category="Administration">Administration</button>
-            <button class="category-btn" data-category="Admission">Admission</button>
-            <button class="category-btn" data-category="Events">Events</button>
+          <!-- COMPACT SCROLLABLE CATEGORIES -->
+          <div class="categories-scroll" id="categoryButtons">
+            <button class="cat-chip active" data-category="All">All Feed</button>
+            <button class="cat-chip" data-category="Examination">Examination</button>
+            <button class="cat-chip" data-category="Academic">Academic</button>
+            <button class="cat-chip" data-category="Administration">Administration</button>
+            <button class="cat-chip" data-category="Admission">Admission</button>
+            <button class="cat-chip" data-category="Events">Events</button>
           </div>
-
-          <!-- NOTICE LIST -->
-          <div class="notice-list" id="noticeList"></div>
-
-          <div class="empty" id="emptyMessage">
-            <h3>No notices found.</h3>
-            <p>Try another search or category.</p>
-          </div>
-
         </div>
-      </div>
 
-      <!-- RIGHT SIDEBAR -->
+        <div class="notice-list" id="noticeList"></div>
+
+        <div class="empty-state" id="emptyMessage">
+          No announcements matched your search criteria.
+        </div>
+      </section>
+
+      <!-- SIDEBAR -->
       <aside class="sidebar">
 
-        <div class="side-box">
-          <h3>📌 Important Information</h3>
-
-          <div class="side-item">
-            <span>Examination Section</span>
-            <span>Official</span>
+        <div class="side-card">
+          <h3>📌 Key Contacts</h3>
+          <div class="compact-list">
+            <div class="compact-item">
+              <span>Exam Controller</span>
+              <span>Room 102</span>
+            </div>
+            <div class="compact-item">
+              <span>Academic Admin</span>
+              <span>Room 105</span>
+            </div>
+            <div class="compact-item">
+              <span>Student Affairs</span>
+              <span>Block B</span>
+            </div>
           </div>
-
-          <div class="side-item">
-            <span>Academic Administration</span>
-            <span>Official</span>
-          </div>
-
-          <div class="side-item">
-            <span>Student Information</span>
-            <span>Updated</span>
-          </div>
-
         </div>
 
-        <div class="side-box">
+        <div class="side-card">
           <h3>⚡ Quick Links</h3>
-
-          <div class="quick-links">
-            <a href="#" onclick="return false">Student Portal</a>
-            <a href="#" onclick="return false">Examination Results</a>
-            <a href="#" onclick="return false">Academic Calendar</a>
-            <a href="#" onclick="return false">College Website</a>
-            <a href="#" onclick="return false">Contact Administration</a>
+          <div class="quick-nav-links">
+            <a href="#">Grading System & Results</a>
+            <a href="#">Academic Routine PDF</a>
+            <a href="#">Admission Guidelines</a>
+            <a href="#">University Portal</a>
           </div>
         </div>
 
-        <div class="side-box">
-          <h3>Contact Information</h3>
-
-          <div class="side-item">
-            <span>Location</span>
-            <span>Hetauda-4</span>
-          </div>
-
-          <div class="side-item">
-            <span>District</span>
-            <span>Makwanpur</span>
-          </div>
-
-          <div class="side-item">
-            <span>University</span>
-            <span>Bagmati University</span>
+        <div class="side-card">
+          <h3>📍 Campus Location</h3>
+          <div class="compact-list">
+            <div class="compact-item">
+              <span>City</span>
+              <span>Hetauda-4</span>
+            </div>
+            <div class="compact-item">
+              <span>District</span>
+              <span>Makwanpur</span>
+            </div>
+            <div class="compact-item">
+              <span>State</span>
+              <span>Bagmati</span>
+            </div>
           </div>
         </div>
 
       </aside>
 
-    </section>
+    </div>
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer">
-    <span>© 2026 Hetauda Campus. All rights reserved.</span>
-    <span>College Notice Management System</span>
+    <span>© 2026 Hetauda Campus</span>
+    <span>Powered by HC Notice Engine</span>
   </footer>
 
 </div>
 
-<!-- PUBLISH NOTICE MODAL -->
-<div class="modal" id="noticeModal">
-  <div class="modal-content">
-
+<!-- PUBLISH MODAL -->
+<div class="modal-overlay" id="noticeModal">
+  <div class="modal-box">
     <h2>Publish New Notice</h2>
-
     <form id="noticeForm">
-
-      <div class="form-group">
+      <div class="form-field">
         <label for="noticeTitle">Notice Title *</label>
         <input type="text" id="noticeTitle" required maxlength="150">
       </div>
-
-      <div class="form-group">
+      <div class="form-field">
         <label for="noticeCategory">Category *</label>
         <select id="noticeCategory" required>
           <option value="Examination">Examination</option>
@@ -804,53 +910,37 @@ button {
           <option value="Events">Events</option>
         </select>
       </div>
-
-      <div class="form-group">
+      <div class="form-field">
         <label for="noticeDescription">Description *</label>
         <textarea id="noticeDescription" required></textarea>
       </div>
-
-      <div class="form-group">
+      <div class="form-field">
         <label for="noticeDepartment">Publishing Department</label>
-        <input type="text" id="noticeDepartment"
-          value="Administration" maxlength="100">
+        <input type="text" id="noticeDepartment" value="Administration">
       </div>
-
-      <div class="form-group">
-        <label for="noticeFile">Attachment (PDF)</label>
-        <input type="file" id="noticeFile" accept=".pdf,application/pdf">
+      <div class="form-field">
+        <label for="noticeFile">PDF Attachment</label>
+        <input type="file" id="noticeFile" accept=".pdf">
       </div>
-
-      <div class="form-group">
-        <label>
-          <input type="checkbox" id="noticeImportant">
-          Mark as Important
-        </label>
+      <div class="form-field" style="flex-direction: row; align-items: center; gap: 8px;">
+        <input type="checkbox" id="noticeImportant" style="width: auto;">
+        <label for="noticeImportant">Mark as High Priority</label>
       </div>
-
       <div class="form-actions">
-        <button type="button" class="close-btn" id="closeModal">
-          Cancel
-        </button>
-        <button type="submit" class="primary-btn">
-          Publish
-        </button>
+        <button type="button" class="btn-secondary" id="closeModal">Cancel</button>
+        <button type="submit" class="primary-btn">Publish</button>
       </div>
-
     </form>
   </div>
 </div>
 
 <script>
-
-// SAMPLE NOTICES
-
 const sampleNotices = [
   {
     id: 1,
-    title: "Examination Form Submission Notice",
+    title: "Examination Form Submission Deadline Notice",
     category: "Examination",
-    description: "All students are informed to complete their examination form submission within the deadline prescribed by the Examination Section.",
+    description: "All students must complete their examination form submission before the deadline set by the Examination Section.",
     department: "Examination Section",
     date: "2026-11-06",
     important: true,
@@ -858,57 +948,34 @@ const sampleNotices = [
   },
   {
     id: 2,
-    title: "Class Routine and Academic Calendar",
+    title: "Updated Academic Calendar & Class Routines",
     category: "Academic",
-    description: "The updated academic calendar and class schedule for all academic programs are available for students.",
-    department: "Academic Administration",
+    description: "The updated semester program schedule and routines are now published for all faculties.",
+    department: "Academic Admin",
     date: "2026-11-04",
     important: false,
     attachment: ""
   },
   {
     id: 3,
-    title: "Student Admission Information",
+    title: "New Student Admission Procedure 2083",
     category: "Admission",
-    description: "Admission-related information and application procedures are available from the college administration.",
+    description: "Application guidelines and criteria for new admissions are now available at the administrative office.",
     department: "Admission Section",
     date: "2026-11-02",
-    important: false,
-    attachment: ""
-  },
-  {
-    id: 4,
-    title: "Internal Examination Preparation",
-    category: "Examination",
-    description: "Students are requested to check their respective program and semester examination schedules.",
-    department: "Examination Section",
-    date: "2026-10-30",
-    important: true,
-    attachment: ""
-  },
-  {
-    id: 5,
-    title: "College Academic Activities",
-    category: "Events",
-    description: "Information regarding upcoming academic activities and student participation.",
-    department: "Administration",
-    date: "2026-10-27",
     important: false,
     attachment: ""
   }
 ];
 
-const STORAGE_KEY = "hetauda_rms_notices_v1";
-
+const STORAGE_KEY = "hc_notice_portal_dark_v2";
 let notices = loadNotices();
 let activeCategory = "All";
 
 function loadNotices() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === null) return sampleNotices;
-    const parsed = JSON.parse(saved);
-    return Array.isArray(parsed) ? parsed : sampleNotices;
+    return saved ? JSON.parse(saved) : sampleNotices;
   } catch {
     return sampleNotices;
   }
@@ -918,236 +985,119 @@ function saveNotices() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(notices));
   } catch {
-    alert("Could not save notices in this browser.");
+    alert("Local storage save failed.");
   }
 }
 
-// SAFE HTML OUTPUT
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+function escapeHTML(str) {
+  return String(str ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[c]);
 }
 
 function renderNotices() {
-
-  const search = document
-    .getElementById("searchInput")
-    .value.toLowerCase().trim();
-
+  const search = document.getElementById("searchInput").value.toLowerCase().trim();
   const sort = document.getElementById("sortSelect").value;
 
   let filtered = notices.filter(n => {
-
-    const matchesCategory =
-      activeCategory === "All" ||
-      n.category === activeCategory;
-
-    const matchesSearch =
-      `${n.title} ${n.description} ${n.department} ${n.category}`
-      .toLowerCase().includes(search);
-
-    return matchesCategory && matchesSearch;
+    const catMatch = activeCategory === "All" || n.category === activeCategory;
+    const searchMatch = `${n.title} ${n.description} ${n.department}`.toLowerCase().includes(search);
+    return catMatch && searchMatch;
   });
 
   filtered.sort((a, b) => {
-    const comparison = String(a.date).localeCompare(String(b.date));
-    return sort === "newest" ? -comparison : comparison;
+    const comp = String(a.date).localeCompare(String(b.date));
+    return sort === "newest" ? -comp : comp;
   });
 
   const list = document.getElementById("noticeList");
   const empty = document.getElementById("emptyMessage");
 
-  list.innerHTML = filtered.map(n => {
-
-    const tagClass =
-      n.important ? "important" :
-      n.category === "Academic" ? "academic" : "";
-
+  list.innerHTML = filtered.map((n, index) => {
+    const isImp = n.important;
     const attachment = n.attachment
-      ? `<a class="download-btn" href="${escapeHTML(n.attachment)}" download>↓ Download PDF</a>`
+      ? `<a class="dl-btn" href="${escapeHTML(n.attachment)}" download>↓ Attachment</a>`
       : "";
 
     return `
-      <article class="notice">
-
-        <div class="notice-top">
-          <div class="tags">
-            <span class="tag ${tagClass}">
+      <article class="notice-card ${isImp ? 'is-important' : ''}" style="animation-delay: ${index * 0.05}s">
+        <div class="card-top">
+          <div class="badge-group">
+            <span class="tag-badge ${isImp ? 'important' : ''}">
               ${escapeHTML(n.category)}
             </span>
-            ${n.important
-              ? '<span class="tag important">★ Important</span>'
-              : ''}
+            ${isImp ? '<span class="tag-badge important">★ Priority</span>' : ''}
           </div>
-
-          <span class="notice-date">
-            ${escapeHTML(n.date)}
-          </span>
+          <span class="notice-date-text">${escapeHTML(n.date)}</span>
         </div>
 
-        <h3>${escapeHTML(n.title)}</h3>
+        <h3 class="notice-title">${escapeHTML(n.title)}</h3>
+        <p class="notice-desc">${escapeHTML(n.description)}</p>
 
-        <p class="notice-description">
-          ${escapeHTML(n.description)}
-        </p>
-
-        <div class="notice-bottom">
-          <span class="notice-meta">
-            Published by: ${escapeHTML(n.department)}
-          </span>
+        <div class="card-bottom">
+          <span class="notice-dept">Dept: ${escapeHTML(n.department)}</span>
           ${attachment}
         </div>
-
       </article>
     `;
   }).join("");
 
   empty.style.display = filtered.length ? "none" : "block";
-
   updateStats();
 }
 
-// STATISTICS
-
 function updateStats() {
-
   const today = new Date();
   const recent = notices.filter(n => {
-    const date = new Date(n.date + "T00:00:00");
-    const difference = (today - date) / 86400000;
-    return difference >= 0 && difference < 7;
+    const diff = (today - new Date(n.date + "T00:00:00")) / 86400000;
+    return diff >= 0 && diff < 7;
   });
 
-  document.getElementById("totalNotices").textContent =
-    notices.length;
-
-  document.getElementById("importantNotices").textContent =
-    notices.filter(n => n.important).length;
-
-  document.getElementById("recentNotices").textContent =
-    recent.length;
-
-  document.getElementById("totalCategories").textContent =
-    new Set(notices.map(n => n.category)).size;
+  document.getElementById("totalNotices").textContent = notices.length;
+  document.getElementById("importantNotices").textContent = notices.filter(n => n.important).length;
+  document.getElementById("recentNotices").textContent = recent.length;
+  document.getElementById("totalCategories").textContent = new Set(notices.map(n => n.category)).size;
 }
 
-// SEARCH
+document.getElementById("searchInput").addEventListener("input", renderNotices);
+document.getElementById("sortSelect").addEventListener("change", renderNotices);
 
-document.getElementById("searchInput")
-  .addEventListener("input", renderNotices);
-
-document.getElementById("sortSelect")
-  .addEventListener("change", renderNotices);
-
-// CATEGORY FILTER
-
-document.querySelectorAll(".category-btn").forEach(button => {
-
-  button.addEventListener("click", () => {
-
-    document.querySelectorAll(".category-btn")
-      .forEach(b => b.classList.remove("active"));
-
-    button.classList.add("active");
-
-    activeCategory = button.dataset.category;
-
+document.querySelectorAll(".cat-chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".cat-chip").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCategory = btn.dataset.category;
     renderNotices();
   });
-
 });
-
-// MODAL
 
 const modal = document.getElementById("noticeModal");
+document.getElementById("openModal").onclick = () => modal.classList.add("show");
+document.getElementById("closeModal").onclick = () => modal.classList.remove("show");
 
-document.getElementById("openModal").onclick = () => {
-  modal.classList.add("show");
-};
+document.getElementById("noticeForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const file = document.getElementById("noticeFile").files[0];
 
-document.getElementById("closeModal").onclick = () => {
+  const newNotice = {
+    id: Date.now(),
+    title: document.getElementById("noticeTitle").value.trim(),
+    category: document.getElementById("noticeCategory").value,
+    description: document.getElementById("noticeDescription").value.trim(),
+    department: document.getElementById("noticeDepartment").value.trim(),
+    date: new Date().toISOString().slice(0, 10),
+    important: document.getElementById("noticeImportant").checked,
+    attachment: file ? URL.createObjectURL(file) : ""
+  };
+
+  notices.unshift(newNotice);
+  saveNotices();
+  document.getElementById("noticeForm").reset();
   modal.classList.remove("show");
-};
-
-modal.addEventListener("click", event => {
-  if (event.target === modal) {
-    modal.classList.remove("show");
-  }
+  renderNotices();
 });
 
-// PUBLISH NOTICE
-
-document.getElementById("noticeForm")
-  .addEventListener("submit", event => {
-
-    event.preventDefault();
-
-    const file = document.getElementById("noticeFile").files[0];
-
-    if (file && (
-      file.type !== "application/pdf" ||
-      !file.name.toLowerCase().endsWith(".pdf") ||
-      file.size > 5 * 1024 * 1024
-    )) {
-      alert("Please select a valid PDF file smaller than 5 MB.");
-      return;
-    }
-
-    const newNotice = {
-      id: Date.now(),
-      title: document.getElementById("noticeTitle").value.trim(),
-      category: document.getElementById("noticeCategory").value,
-      description: document.getElementById("noticeDescription").value.trim(),
-      department: document.getElementById("noticeDepartment").value.trim(),
-      date: new Date().toISOString().slice(0, 10),
-      important: document.getElementById("noticeImportant").checked,
-      attachment: ""
-    };
-
-    if (!newNotice.title || !newNotice.description) {
-      alert("Please complete all required fields.");
-      return;
-    }
-
-    if (file) {
-      newNotice.attachment = URL.createObjectURL(file);
-    }
-
-    notices.unshift(newNotice);
-
-    saveNotices();
-
-    document.getElementById("noticeForm").reset();
-
-    modal.classList.remove("show");
-
-    activeCategory = "All";
-
-    document.querySelectorAll(".category-btn")
-      .forEach(b => b.classList.toggle(
-        "active", b.dataset.category === "All"
-      ));
-
-    document.getElementById("searchInput").value = "";
-    document.getElementById("sortSelect").value = "newest";
-
-    renderNotices();
-
-    alert("Notice published in this browser.");
-  });
-
-// INITIAL LOAD
-
 renderNotices();
-
 </script>
-
 </body>
 </html>
-
