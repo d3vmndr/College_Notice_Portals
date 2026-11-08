@@ -1,22 +1,26 @@
-# Result Portal (Bagmati University)
+# College Notice & Result Portals (Bagmati University)
 
-Static site, no backend. Files: `index.html` (student page), `admin.html` (admin console), `css/style.css`, `js/core.js`, `js/student.js`, `js/admin.js`, `js/seed.js` (sample data), `data/results.json` (published results).
+Unified campus portal with Notice Management System (CRUD), Examination Desk, and Student Result Verification.
 
-## Run
-Serve the folder over **https** or `http://localhost` (the browser crypto API needs it):
-`python3 -m http.server 8000` then open `http://localhost:8000/`.
+## Files
+- `admin.html`: Unified Admin Console (Notice CRUD, Examination Desk, Student Gradesheet Lookup, Settings)
+- `notice_page.html`: Live Notice Board Stream
+- `index.html`: Student Result Portal
+- `css/style.css`: Shared styling and UI themes
+- `js/core.js`: Core storage, encryption (AES-GCM/PBKDF2) & result calculation
+- `js/admin.js`: Multi-portal admin application logic
+- `js/student.js`: Student gradesheet lookup
+- `data/results.json`: Encrypted published examination records
 
-## Admin
-- Open `admin.html`. First visit asks you to set a password.
-- Add programs, subjects, students (symbol no. + date of birth), enter marks, check Results.
-- Admin data is stored **in that browser only**. Use Settings > Backup regularly.
-- **Publish** tab: choose terms, build, download `results.json`, upload it to the site's `data/` folder (replace the file).
-- Settings > Erase removes the sample data. Do this before real use.
+## Run Locally
+Serve the folder over `http://localhost` (browser crypto API requires localhost or https):
+```bash
+python -m http.server 8000
+```
+Then open `http://localhost:8000/` in your browser.
 
-## Student
-Enter symbol number and date of birth (calendar set in Settings, BS or AD, no conversion). Results are encrypted per student; wrong details give a generic error.
-
-## Limits
-- Admin login is client-side: it deters casual users, it is not server security.
-- Lookup is by symbol number (roll numbers are only unique per program/term/batch).
-- Sample login: symbol 20820101, DOB 2060-08-17.
+## Portals & Features
+- **Admin Console (`admin.html`)**: First visit sets admin password. Manage notice CRUD, faculties, programs, subjects, students, marks entry, and publish encrypted results.
+- **Notice Board (`notice_page.html`)**: Real-time notice feed with category filtering, search, and priority alerts.
+- **Student Portal (`index.html`)**: Secure student gradesheet lookup by Symbol No. and Date of Birth.
+- **Sample student credentials**: Symbol `20820101`, DOB `2060-08-17`.
